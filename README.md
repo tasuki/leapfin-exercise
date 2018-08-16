@@ -12,15 +12,15 @@ Run the application with 10 second timeout:
 
 Install [sbt](https://www.scala-sbt.org/), then run:
 
-    sbt "runMain Main"
+    sbt "run"
 
 To see help, run:
 
-    sbt "runMain Main --help"
+    sbt "run --help"
 
 To set timeout to 10 seconds, run:
 
-    sbt "runMain Main --timeout 10"
+    sbt "run --timeout 10"
 
 ## Run tests
 
