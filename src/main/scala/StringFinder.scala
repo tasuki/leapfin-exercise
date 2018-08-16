@@ -4,15 +4,13 @@ trait Result {
   val elapsed: Long
 }
 case class ResultSuccess(elapsed: Long, bytes: Int) extends Result {
-  override def toString: String = {
+  override def toString: String =
     "%10d %10d %10s".format(elapsed, bytes, "SUCCESS")
-  }
 }
 case object ResultTimeout extends Result {
   val elapsed = 1000000L
-  override def toString: String = {
+  override def toString: String =
     "%10s %10s %10s".format("", "", "TIMEOUT")
-  }
 }
 
 object StringFinder {
