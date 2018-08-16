@@ -16,7 +16,8 @@ case object ResultTimeout extends Result {
 }
 
 object StringFinder {
-  val needle: String = "Lpfn"
+  val needle: List[Char] = "Lpfn".toList
+  val needlength: Int = needle.length
 
   def find(stream: Stream[Char]): ResultSuccess =
     findNeedle(stream, 0, 0, System.currentTimeMillis())
@@ -31,7 +32,7 @@ object StringFinder {
     count: Int,
     startedAt: Long
   ): ResultSuccess =
-    if (found == needle.length)
+    if (found == needlength)
       ResultSuccess(System.currentTimeMillis() - startedAt, count)
     else if (stream.head == needle(found))
       findNeedle(stream.tail, found + 1, count + 1, startedAt)
