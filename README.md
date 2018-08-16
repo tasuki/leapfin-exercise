@@ -4,6 +4,10 @@ Run the application:
 
     java -jar leapfin.jar
 
+Run the application with 10 second timeout:
+
+    java -jar leapfin.jar --timeout 10
+
 ## Run with sbt
 
 Install [sbt](https://www.scala-sbt.org/), then run:
