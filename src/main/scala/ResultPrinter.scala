@@ -4,8 +4,12 @@ object ResultPrinter {
 
     val overall = results
       .collect { case result: ResultSuccess => result }
-      .reduce((a, b) => ResultSuccess(a.elapsed + b.elapsed, a.bytes + b.bytes))
+      .reduce((a, b) => ResultSuccess(
+        a.elapsed + b.elapsed,
+        a.bytes + b.bytes
+      ))
 
-    println("Bytes read per second: " + overall.bytes / (overall.elapsed / 1000))
+    val bytesPerSecond = 1000 * (overall.bytes / overall.elapsed)
+    println("Bytes read per second: " + bytesPerSecond)
   }
 }
