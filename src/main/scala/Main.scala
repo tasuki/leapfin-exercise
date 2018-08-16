@@ -5,12 +5,16 @@ import scala.util.Random
 import monix.eval.Task
 import monix.execution.Scheduler
 import monix.execution.schedulers.SchedulerService
+import monix.execution.ExecutionModel.AlwaysAsyncExecution
 
 object Main {
   val parallelTasks = 10
 
   implicit val scheduler: SchedulerService =
-    Scheduler.computation(parallelism = parallelTasks)
+    Scheduler.computation(
+      parallelism = parallelTasks,
+      executionModel = AlwaysAsyncExecution
+    )
 
   private def randomStream: Stream[Char] = Random.alphanumeric
 
