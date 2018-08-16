@@ -1,11 +1,24 @@
 import scala.annotation.tailrec
 
-case class Result(elapsed: Long, bytes: Int, status: String)
+trait Result {
+  val elapsed: Long
+}
+case class ResultSuccess(elapsed: Long, bytes: Int) extends Result {
+  override def toString: String = {
+    "%10d %10d %10s".format(elapsed, bytes, "SUCCESS")
+  }
+}
+case object ResultTimeout extends Result {
+  val elapsed = 1000000L
+  override def toString: String = {
+    "%10s %10s %10s".format("", "", "TIMEOUT")
+  }
+}
 
 object StringFinder {
   val needle: String = "Lpfn"
 
-  def find(stream: Stream[Char]): Result =
+  def find(stream: Stream[Char]): ResultSuccess =
     findNeedle(stream, 0, 0, System.currentTimeMillis())
 
   // we assume:
@@ -17,9 +30,9 @@ object StringFinder {
     found: Int,
     count: Int,
     startedAt: Long
-  ): Result =
+  ): ResultSuccess =
     if (found == needle.length)
-      Result(System.currentTimeMillis() - startedAt, count, "SUCCESS")
+      ResultSuccess(System.currentTimeMillis() - startedAt, count)
     else if (stream.head == needle(found))
       findNeedle(stream.tail, found + 1, count + 1, startedAt)
     else if (stream.head == needle(0))

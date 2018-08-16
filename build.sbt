@@ -1,4 +1,4 @@
-name := "throwaway"
+name := "leapfin"
 
 version := "0.1"
 
